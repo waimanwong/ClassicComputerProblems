@@ -24,6 +24,23 @@ def linear_contains(gene: Gene, key_codon: Codon) -> bool:
     
     return False
 
+def binary_contains(gene: Gene, key_codon: Codon) -> bool:
+    low: int = 0
+    high: int = len(gene) -1
+
+    while low <= high:
+        mid:int = (low + high) // 2  
+        midColon = gene[mid]
+        if midColon < key_codon:
+            low = mid + 1
+        elif midColon > key_codon:
+            high = mid - 1
+        else:
+            return True 
+    
+    return False
+
+
 if __name__ == "__main__":
     my_gene = string_to_gene(gene_str)
     
@@ -33,8 +50,10 @@ if __name__ == "__main__":
     #Equivalent
     print(acg in my_gene)
     print (linear_contains(my_gene, acg))
+    print(binary_contains(sorted(my_gene), acg))
 
     #Equivalent
     print(gat in my_gene) 
     print (linear_contains(my_gene, gat))
+    print(binary_contains(sorted(my_gene), gat))
     
